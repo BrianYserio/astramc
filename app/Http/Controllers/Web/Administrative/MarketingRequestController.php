@@ -10,4 +10,8 @@ class MarketingRequestController extends Controller
     public function index() {
         return view('module.Administrative.marketing-service-request.index');
     }
+
+    public function create() {
+        return view('module.Administrative.marketing-service-request.partial.index');
+    }
 }

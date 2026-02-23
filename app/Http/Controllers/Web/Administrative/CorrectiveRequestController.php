@@ -10,4 +10,9 @@ class CorrectiveRequestController extends Controller
     public function index() {
         return view('module.Administrative.corrective-action-request.index');
     }
+
+    public function create() {
+        return view('module.Administrative.corrective-action-request.partial.index');
+    }
+
 }

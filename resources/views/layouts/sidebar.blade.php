@@ -120,7 +120,7 @@
 
         <ul class="space-y-1 mt-2 pl-4 max-h-0 overflow-hidden transition-all duration-300">
           <li>
-            <a href="#"
+            <a href="{{route('shipment-order.index')}}"
               class="text-slate-800 hover:text-slate-900 font-medium transition-all text-[15px] flex items-center hover:bg-[#efefef] rounded-md px-4 py-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3"
                 viewBox="0 0 511.877 511.877">
@@ -132,7 +132,7 @@
             </a>
           </li>
           <li>
-            <a href="#"
+            <a href="{{route('shipment-registry.index')}}"
               class="text-slate-800 hover:text-slate-900 font-medium transition-all text-[15px] flex items-center hover:bg-[#efefef] rounded-md px-4 py-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3"
                 viewBox="0 0 193.769 193.769">

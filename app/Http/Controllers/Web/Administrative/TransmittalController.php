@@ -18,7 +18,7 @@ class TransmittalController extends Controller
             ->latest()
             ->get();    
 
-        return view('module.Administrative.transmittal.index', compact('transmittals'));
+        return view('module.administrative.transmittal.index', compact('transmittals'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TransmittalController extends Controller
      */
     public function create()
     {
-        return view('module.Administrative.transmittal.partial.index');
+        return view('module.administrative.transmittal.partial.index');
     }
 
     /**
