@@ -45,4 +45,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($users) {
+            $last = self::latest('id')->first();
+            $nextNumber = $last ? $last->id + 1 : 1;
+            $users->emp_id = 'EMP' . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+        });
+    }
 }

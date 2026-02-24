@@ -1,12 +1,12 @@
-<x-app-layout title="AstraMC Trucks & Equipments">
+<x-app-layout>
 
 {{-- Breadcrumb --}}
 <div class="flex items-center justify-between mb-4">
     <div>
         <x-breadcrumb :items="[
-            ['label' => 'Dashboard',                 'active' => false],
-            ['label' => 'Administrative',            'active' => false],
-            ['label' => 'Corrective Action Request', 'active' => true]
+            ['label' => 'Dashboard',                  'active' => false],
+            ['label' => 'Administrative',             'active' => false],
+            ['label' => 'Marketing Service Request',  'active' => true]
         ]" />
     </div>
 </div>
@@ -16,20 +16,53 @@
     {{-- ── Header ── --}}
     <div class="flex flex-wrap items-center gap-3 px-6 py-4 bg-gray-50 border-b border-gray-200">
 
-        <a href="{{ route('corrective-action-request.index') }}"
+        <a href="{{ route('marketing-service-request.index') }}"
            class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
             </svg>
         </a>
 
-        <h1 class="text-base font-semibold text-gray-800 tracking-tight">Corrective Action Request</h1>
+        <h1 class="text-base font-semibold text-gray-800 tracking-tight">Marketing Service Request</h1>
 
-        <span class="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 border border-yellow-200">
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 border border-yellow-200">
             <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block"></span>
             Pending
         </span>
 
+        <div class="ml-auto flex items-center gap-3">
+
+            {{-- Select Company --}}
+            <div class="relative">
+                <select name="company_id" disabled
+                        class="appearance-none pl-3 pr-8 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer min-w-[160px]">
+                    <option value="" disabled selected>Select Company</option>
+                    <option>Company A</option>
+                    <option>Company B</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                    <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+            </div>
+
+            {{-- Select Branch --}}
+            <div class="relative">
+                <select name="branch_id" disabled
+                        class="appearance-none pl-3 pr-8 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer min-w-[160px]">
+                    <option value="" disabled selected>Select Branch</option>
+                    <option>Branch A</option>
+                    <option>Branch B</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                    <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     {{-- ── Form ── --}}
@@ -38,25 +71,47 @@
 
         <div class="p-6 space-y-6">
 
-            {{-- ── Row 1: CAR No · Transaction Date · Requested By · Responsible · Prepared By ── --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {{-- ── Row 1: MSR No · Transaction Date · Type of Request · Requested By · Departments · Prepared By ── --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">CAR No.</label>
-                    <input type="text" value="CAR2600001" readonly
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">MSR No.</label>
+                    <input type="text" value="MSR2600001" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-blue-50 text-blue-700 font-mono font-medium cursor-not-allowed focus:outline-none"/>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Transaction Date</label>
-                    <input type="date" name="transaction_date" value="{{ date('Y-m-d') }}" readonly
+                    <input type="date" name="transaction_date"
+                           value="{{ date('Y-m-d') }}" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-blue-50 text-blue-700 font-mono font-medium cursor-not-allowed focus:outline-none"/>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Type of Request</label>
+                    <div class="relative">
+                        <select name="type_of_request"
+                                class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
+                            <option value="" disabled selected>Select type…</option>
+                            <option value="print">Print Materials</option>
+                            <option value="digital">Digital / Social Media</option>
+                            <option value="event">Event / Activation</option>
+                            <option value="branding">Branding</option>
+                            <option value="video">Video / Photography</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Requested By</label>
                     <div class="relative">
-                        <select name="requested_by"
+                        <select name="requested_by" 
                                 class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
                             <option value="" disabled selected>Select person…</option>
                             <option>Employee A</option>
@@ -70,74 +125,26 @@
                     </div>
                 </div>
 
+                {{-- Departments Tag Input --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Responsible</label>
-                    <div class="relative">
-                        <select name="responsible"
-                                class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
-                            <option value="" disabled selected>Select responsible…</option>
-                            <option>Department A</option>
-                            <option>Department B</option>
-                            <option>Department C</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </div>
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Departments</label>
+                    <div id="dept-wrapper"
+                         class="flex flex-wrap items-center gap-1 w-full min-h-[38px] px-2 py-1.5 text-sm rounded-lg border border-gray-200 bg-white focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition cursor-text"
+                         onclick="document.getElementById('dept-input').focus()">
+                        <input id="dept-input" type="text"
+                               class="flex-1 min-w-[60px] text-xs text-gray-700 bg-transparent border-none outline-none py-0.5"
+                               placeholder="Type & Enter…"
+                               onkeydown="handleDeptInput(event)"/>
                     </div>
+                    <input type="hidden" name="departments" id="dept-hidden"/>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Prepared By</label>
-                    <input type="text" value="Bryan Iserio" readonly
+                    <input type="text" value="BRYAN ISERIO" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-blue-50 text-blue-700 font-mono font-medium cursor-not-allowed focus:outline-none"/>
                 </div>
 
-            </div>
-
-            {{-- ── Divider ── --}}
-            <div class="border-t border-dashed border-gray-200"></div>
-
-            {{-- ── Row 2: Source · Others (Specify) ── --}}
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Source <span class="text-red-400">*</span></label>
-                    <div class="relative">
-                        <select name="source"
-                                class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
-                            <option value="" disabled selected>Select source…</option>
-                            <option value="internal_audit">Internal Audit</option>
-                            <option value="external_audit">External Audit</option>
-                            <option value="customer_complaint">Customer Complaint</option>
-                            <option value="process_deviation">Process Deviation</option>
-                            <option value="management_review">Management Review</option>
-                            <option value="other">Other (Specify)</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-2 flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Others (Specify)</label>
-                    <input type="text" name="others_specify"
-                           class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                           placeholder="Specify if source is Other…"/>
-                </div>
-
-            </div>
-
-            {{-- ── Row 3: Title (full width) ── --}}
-            <div class="flex flex-col gap-1.5">
-                <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Title <span class="text-red-400">*</span></label>
-                <input type="text" name="title"
-                       class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                       placeholder="Enter a concise title for this corrective action…"/>
             </div>
 
             {{-- ── Row 2: Purpose of Request (full width) ── --}}
@@ -155,6 +162,7 @@
             <div class="rounded-xl border border-gray-200 overflow-hidden">
 
                 <div class="flex items-center gap-2 px-4 py-3 bg-orange-500">
+
                     <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-gray-50
                                   border border-gray-200 text-xs font-semibold text-gray-700 cursor-pointer
                                   transition shadow-sm select-none">
@@ -217,19 +225,47 @@
 
 <script>
 // ─────────────────────────────────────────
-// Toggle "Others (Specify)" visibility
+// Department Tag Input
 // ─────────────────────────────────────────
-document.querySelector('[name="source"]').addEventListener('change', function () {
-    const othersField = document.querySelector('[name="others_specify"]');
-    const isOther     = this.value === 'other';
-    othersField.closest('.flex').style.opacity = isOther ? '1' : '0.45';
-    othersField.disabled = !isOther;
-    if (!isOther) othersField.value = '';
-});
+let departments = ['ITD'];
 
-// Init: disable others field by default
-document.querySelector('[name="others_specify"]').disabled = true;
-document.querySelector('[name="others_specify"]').closest('.flex').style.opacity = '0.45';
+function renderTags() {
+    const wrapper = document.getElementById('dept-wrapper');
+    wrapper.querySelectorAll('.dept-tag').forEach(t => t.remove());
+    const input = document.getElementById('dept-input');
+
+    departments.forEach(dept => {
+        const tag = document.createElement('span');
+        tag.className = 'dept-tag inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-xs font-semibold';
+        tag.innerHTML = `${dept}
+            <button type="button" onclick="removeDept('${dept}')" class="hover:text-red-500 transition leading-none ml-0.5">&times;</button>`;
+        wrapper.insertBefore(tag, input);
+    });
+
+    document.getElementById('dept-hidden').value = departments.join(',');
+}
+
+function handleDeptInput(e) {
+    if ((e.key === 'Enter' || e.key === ',') && e.target.value.trim()) {
+        e.preventDefault();
+        const val = e.target.value.trim().toUpperCase().replace(/,/g, '');
+        if (val && !departments.includes(val)) {
+            departments.push(val);
+            renderTags();
+        }
+        e.target.value = '';
+    } else if (e.key === 'Backspace' && !e.target.value && departments.length) {
+        departments.pop();
+        renderTags();
+    }
+}
+
+function removeDept(dept) {
+    departments = departments.filter(d => d !== dept);
+    renderTags();
+}
+
+renderTags();
 
 // ─────────────────────────────────────────
 // File Upload Panel

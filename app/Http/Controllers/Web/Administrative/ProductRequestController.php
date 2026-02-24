@@ -10,4 +10,8 @@ class ProductRequestController extends Controller
      public function index() {
         return view('module.Administrative.product-display-request.index');
     }
+    
+    public function create() {
+        return view('module.Administrative.product-display-request.partial.index');
+    }
 }

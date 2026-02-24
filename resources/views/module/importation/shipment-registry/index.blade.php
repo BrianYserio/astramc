@@ -4,11 +4,11 @@
     <div class="flex items-center justify-between mb-4">
         <x-breadcrumb :items="[
             ['label' => 'Dashboard', 'active' => false],
-            ['label' => 'Administrative', 'active' => false],
-            ['label' => 'Corrective Action Request',    'active' => true]
+            ['label' => 'Importation', 'active' => false],
+            ['label' => 'Shipment Registry',    'active' => true]
         ]" />
 
-        <a href="{{route('corrective-action-request.create')}}"
+        <a href="{{ route('shipment-registry.create') }}"
            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700
                   text-white text-sm font-semibold
                   px-4 py-2 rounded-lg
@@ -17,7 +17,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
             </svg>
-            Corrective Action Request
+            Shipment Registry
         </a>
     </div>
 
@@ -56,7 +56,7 @@
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th class="px-4 py-3 text-left text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 w-10">#</th>
-                        @foreach(['CAR No.','Title','Prepared By','Responsible','Effective Date','Response Date','Result Verification','Status'] as $col)
+                        @foreach(['SO No.', 'Ship#.','Type.','Supplier Name','BL No','Consignee/Importer','Date & Time','Status'] as $col)
                         <th class="px-4 py-3 text-left text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 cursor-pointer select-none whitespace-nowrap group"
                             onclick="sortTable(this)">
                             <span class="inline-flex items-center gap-1.5">
@@ -92,7 +92,7 @@
                         </td>
 
                         <td class="px-4 py-3 text-xs text-gray-700 font-medium">
-                            {{-- $transmittal->sender --}}
+                            {{-- $transmittal->sender --}}--
                         </td>
 
                         <td class="px-4 py-3 text-xs text-gray-500">
@@ -128,7 +128,7 @@
                             </span> --}}
                         </td>
                     </tr>
-                    {{--@endforeach--}}
+                    {{-- @endforeach --}}
                 </tbody>
             </table>
 

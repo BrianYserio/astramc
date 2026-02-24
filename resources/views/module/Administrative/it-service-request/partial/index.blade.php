@@ -1,12 +1,12 @@
-<x-app-layout title="AstraMC Trucks & Equipments">
+<x-app-layout>
 
 {{-- Breadcrumb --}}
 <div class="flex items-center justify-between mb-4">
     <div>
         <x-breadcrumb :items="[
-            ['label' => 'Dashboard',                 'active' => false],
-            ['label' => 'Administrative',            'active' => false],
-            ['label' => 'Corrective Action Request', 'active' => true]
+            ['label' => 'Dashboard',          'active' => false],
+            ['label' => 'Administrative',     'active' => false],
+            ['label' => 'IT Service Request', 'active' => true]
         ]" />
     </div>
 </div>
@@ -16,19 +16,20 @@
     {{-- ── Header ── --}}
     <div class="flex flex-wrap items-center gap-3 px-6 py-4 bg-gray-50 border-b border-gray-200">
 
-        <a href="{{ route('corrective-action-request.index') }}"
+        <a href="{{ route('it-service-request.index') }}"
            class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
             </svg>
         </a>
 
-        <h1 class="text-base font-semibold text-gray-800 tracking-tight">Corrective Action Request</h1>
+        <h1 class="text-base font-semibold text-gray-800 tracking-tight">IT Service Request</h1>
 
         <span class="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 border border-yellow-200">
             <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block"></span>
             Pending
         </span>
+
 
     </div>
 
@@ -38,19 +39,40 @@
 
         <div class="p-6 space-y-6">
 
-            {{-- ── Row 1: CAR No · Transaction Date · Requested By · Responsible · Prepared By ── --}}
+            {{-- ── Row 1: ITR No · Date & Time · Type of Request · Requested By · Prepared By ── --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">CAR No.</label>
-                    <input type="text" value="CAR2600001" readonly
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">ITR No.</label>
+                    <input type="text" value="ITR2600001" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-blue-50 text-blue-700 font-mono font-medium cursor-not-allowed focus:outline-none"/>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Transaction Date</label>
-                    <input type="date" name="transaction_date" value="{{ date('Y-m-d') }}" readonly
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Transaction Date &amp; Time</label>
+                    <input type="datetime-local" name="transaction_datetime"
+                           value="{{ now()->format('Y-m-d\TH:i') }}" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-blue-50 text-blue-700 font-mono font-medium cursor-not-allowed focus:outline-none"/>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Type of Request</label>
+                    <div class="relative">
+                        <select name="type_of_request"
+                                class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
+                            <option value="" disabled selected>Select type…</option>
+                            <option value="hardware">Hardware</option>
+                            <option value="software">Software</option>
+                            <option value="network">Network</option>
+                            <option value="access">Access / Permissions</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
@@ -71,24 +93,6 @@
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Responsible</label>
-                    <div class="relative">
-                        <select name="responsible"
-                                class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
-                            <option value="" disabled selected>Select responsible…</option>
-                            <option>Department A</option>
-                            <option>Department B</option>
-                            <option>Department C</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Prepared By</label>
                     <input type="text" value="Bryan Iserio" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-blue-50 text-blue-700 font-mono font-medium cursor-not-allowed focus:outline-none"/>
@@ -96,65 +100,53 @@
 
             </div>
 
-            {{-- ── Divider ── --}}
-            <div class="border-t border-dashed border-gray-200"></div>
-
-            {{-- ── Row 2: Source · Others (Specify) ── --}}
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {{-- ── Row 2: Purpose · Benefit ── --}}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Source <span class="text-red-400">*</span></label>
-                    <div class="relative">
-                        <select name="source"
-                                class="w-full appearance-none px-3 py-2 pr-8 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer">
-                            <option value="" disabled selected>Select source…</option>
-                            <option value="internal_audit">Internal Audit</option>
-                            <option value="external_audit">External Audit</option>
-                            <option value="customer_complaint">Customer Complaint</option>
-                            <option value="process_deviation">Process Deviation</option>
-                            <option value="management_review">Management Review</option>
-                            <option value="other">Other (Specify)</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </div>
-                    </div>
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Purpose of Request</label>
+                    <textarea name="purpose_of_request" rows="4"
+                              class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition resize-none"
+                              placeholder="Describe the purpose of this IT service request…"></textarea>
                 </div>
 
-                <div class="lg:col-span-2 flex flex-col gap-1.5">
-                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Others (Specify)</label>
-                    <input type="text" name="others_specify"
-                           class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                           placeholder="Specify if source is Other…"/>
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Describe the Benefit of the Request</label>
+                    <textarea name="benefit_description" rows="4"
+                              class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition resize-none"
+                              placeholder="Explain how this request benefits the organisation…"></textarea>
                 </div>
 
-            </div>
-
-            {{-- ── Row 3: Title (full width) ── --}}
-            <div class="flex flex-col gap-1.5">
-                <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Title <span class="text-red-400">*</span></label>
-                <input type="text" name="title"
-                       class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                       placeholder="Enter a concise title for this corrective action…"/>
-            </div>
-
-            {{-- ── Row 2: Purpose of Request (full width) ── --}}
-            <div class="flex flex-col gap-1.5">
-                <label class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500">Purpose of Request</label>
-                <textarea name="purpose_of_request" rows="4"
-                          class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition resize-none"
-                          placeholder="Describe the purpose of this marketing request…"></textarea>
             </div>
 
             {{-- ── Divider ── --}}
             <div class="border-t border-dashed border-gray-200"></div>
+
+            {{-- ── Row 3: Initial Assessment · Action Taken/Recommendation (IT-side fields) ── --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-red-500">Initial Assessment</label>
+                    <textarea name="initial_assessment" rows="3" readonly
+                              class="w-full px-3 py-2 text-sm rounded-lg border border-red-200 bg-red-50 text-gray-800 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition resize-none"
+                              placeholder="IT team's initial assessment…"></textarea>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[0.7rem] font-bold uppercase tracking-widest text-red-500">Action Taken / Recommendation</label>
+                    <textarea name="action_taken" rows="3" readonly
+                              class="w-full px-3 py-2 text-sm rounded-lg border border-red-200 bg-red-50 text-gray-800 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition resize-none"
+                              placeholder="Action taken or recommendation by IT…"></textarea>
+                </div>
+
+            </div>
 
             {{-- ── File Upload Panel ── --}}
             <div class="rounded-xl border border-gray-200 overflow-hidden">
 
+                {{-- Toolbar --}}
                 <div class="flex items-center gap-2 px-4 py-3 bg-orange-500">
+
                     <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-gray-50
                                   border border-gray-200 text-xs font-semibold text-gray-700 cursor-pointer
                                   transition shadow-sm select-none">
@@ -178,6 +170,7 @@
                     <span id="file-count" class="ml-auto text-xs text-white/80 font-medium">0 file(s)</span>
                 </div>
 
+                {{-- Drop Zone --}}
                 <div id="drop-zone"
                      class="p-4 bg-white min-h-[140px] transition-colors duration-150"
                      ondragover="event.preventDefault(); this.classList.add('bg-green-50')"
@@ -216,21 +209,6 @@
 </div>
 
 <script>
-// ─────────────────────────────────────────
-// Toggle "Others (Specify)" visibility
-// ─────────────────────────────────────────
-document.querySelector('[name="source"]').addEventListener('change', function () {
-    const othersField = document.querySelector('[name="others_specify"]');
-    const isOther     = this.value === 'other';
-    othersField.closest('.flex').style.opacity = isOther ? '1' : '0.45';
-    othersField.disabled = !isOther;
-    if (!isOther) othersField.value = '';
-});
-
-// Init: disable others field by default
-document.querySelector('[name="others_specify"]').disabled = true;
-document.querySelector('[name="others_specify"]').closest('.flex').style.opacity = '0.45';
-
 // ─────────────────────────────────────────
 // File Upload Panel
 // ─────────────────────────────────────────

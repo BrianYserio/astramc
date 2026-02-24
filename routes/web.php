@@ -8,6 +8,8 @@ use App\Http\Controllers\Web\Administrative\ItRequestController;
 use App\Http\Controllers\Web\Administrative\MarketingRequestController;
 use App\Http\Controllers\Web\Administrative\ProductRequestController;
 use App\Http\Controllers\Web\Administrative\CorrectiveRequestController;
+use App\Http\Controllers\Web\Importation\ShipmentOrderController;
+use App\Http\Controllers\Web\Importation\ShipmentRegistryController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -17,54 +19,84 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::controller(TransmittalController::class)
-        ->prefix('Administrative')
-        ->name('transmittal.')
-        ->middleware('auth', 'verified')
-        ->group(function() {
-Route::get('/transmittal', 'index')->name('index');
-Route::get('/', 'create')->name('create');
-});
+Route::prefix('Administrative')
+    ->middleware(['auth', 'verified'])
+    ->group(function() {
 
-Route::controller(AdjustmentRequestController::class)
-        ->prefix('Administrative')
-        ->name('adjustment-request.')
-        ->middleware('auth', 'verified')
-        ->group(function() {
-Route::get('/adjustment-request', 'index')->name('index');
-});
+        // Transmittal
+        Route::controller(TransmittalController::class)
+            ->name('transmittal.')
+            ->group(function() {
+                Route::get('/transmittal', 'index')->name('index');
+                Route::get('/transmittal/create', 'create')->name('create');
+            });
 
-Route::controller(ItRequestController::class)
-        ->prefix('Administrative')
-        ->name('it-service-request.')
-        ->middleware('auth', 'verified')
-        ->group(function() {
-Route::get('/it-service-request', 'index')->name('index');
-});
+        // Adjustment Request
+        Route::controller(AdjustmentRequestController::class)
+            ->name('adjustment-request.')
+            ->group(function() {
+                Route::get('/adjustment-request', 'index')->name('index');
+                Route::get('/adjustment-request/create', 'create')->name('create');
+            });
 
-Route::controller(MarketingRequestController::class)
-        ->prefix('Administrative')
-        ->name('marketing-service-request.')
-        ->middleware('auth', 'verified')
-        ->group(function() {
-Route::get('/marketing-service-request', 'index')->name('index');
-});
+        // IT Service Request
+        Route::controller(ItRequestController::class)
+            ->name('it-service-request.')
+            ->group(function() {
+                Route::get('/it-service-request', 'index')->name('index');
+                Route::get('/it-service-request/create', 'create')->name('create');
+            });
 
-Route::controller(ProductRequestController::class)
-        ->prefix('Administrative')
-        ->name('product-service-request.')
-        ->middleware('auth', 'verified')
-        ->group(function() {
-Route::get('/product-service-request', 'index')->name('index');
-});
+        // Marketing Request
+        Route::controller(MarketingRequestController::class)
+            ->name('marketing-service-request.')
+            ->group(function() {
+                Route::get('/marketing-service-request', 'index')->name('index');
+                Route::get('/marketing-service-request/create', 'create')->name('create');
+            });
 
-Route::controller(CorrectiveRequestController::class)
-        ->prefix('Administrative')
-        ->name('corrective-action-request.')
-        ->middleware('auth', 'verified')
-        ->group(function() {
-Route::get('/corrective-action-request', 'index')->name('index');
-});
+        // Product Request
+        Route::controller(ProductRequestController::class)
+            ->name('product-service-request.')
+            ->group(function() {
+                Route::get('/product-service-request', 'index')->name('index');
+                Route::get('/product-service-request/create', 'create')->name('create');
+            });
+
+        // Corrective Action Request
+        Route::controller(CorrectiveRequestController::class)
+            ->name('corrective-action-request.')
+            ->group(function() {
+                Route::get('/corrective-action-request', 'index')->name('index');
+                Route::get('/corrective-action-request/create', 'create')->name('create');
+            });
+
+    });
+
+
+Route::prefix('Importation')
+    ->middleware(['auth', 'verified'])
+    ->group(function() {
+
+    // Importation
+        Route::controller(ShipmentOrderController::class)
+            ->name('shipment-order.')
+            ->group(function() {
+                Route::get('/shipment-order', 'index')->name('index');
+                Route::get('/shipment-order/create', 'create')->name('create');
+            });
+
+            Route::controller(ShipmentRegistryController::class)
+            ->name('shipment-registry.')
+            ->group(function() {
+                Route::get('/shipment-registry', 'index')->name('index');
+                Route::get('/shipment-registry/create', 'create')->name('create');
+            });
+
+
+    });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,11 +1,12 @@
-<x-app-layout>
+<x-app-layout title="AstraMC Trucks & Equipments">
 
 {{-- Breadcrumb --}}
 <div class="flex items-center justify-between mb-4">
     <div>
         <x-breadcrumb :items="[
+            ['label' => 'Dashboard', 'active' => false],
             ['label' => 'Administrative', 'active' => false],
-            ['label' => 'Transmittal', 'active' => true]
+            ['label' => 'Add Transmittal', 'active' => true]
         ]" />
     </div>
 </div>
@@ -16,9 +17,7 @@
     <div class="flex items-center gap-3 px-6 py-4 bg-gray-50 border-b border-gray-200">
         <a href="{{ route('transmittal.index') }}"
            class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-            </svg>
+            <x-icons.prev-icon />
         </a>
         <h1 class="text-base font-semibold text-gray-800 tracking-tight">Transmittal</h1>
         <span class="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 border border-yellow-200">
@@ -115,22 +114,22 @@
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-red-500">Received By</label>
-                    <input type="text" name="received_by"
+                    <input type="text" name="received_by" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-red-200 bg-red-50 text-gray-800 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition placeholder-red-300"
-                           placeholder="Name of receiver"/>
+                           />
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-red-500">Date Received</label>
-                    <input type="date" name="date_received"
+                    <input type="date" name="date_received" readonly
                            class="w-full px-3 py-2 text-sm rounded-lg border border-red-200 bg-red-50 text-gray-800 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"/>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[0.7rem] font-bold uppercase tracking-widest text-red-500">Remarks</label>
-                    <textarea name="remarks" rows="2"
+                    <textarea name="remarks" rows="2" readonly
                               class="w-full px-3 py-2 text-sm rounded-lg border border-red-200 bg-red-50 text-gray-800 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition resize-none"
-                              placeholder="Enter remarks..."></textarea>
+                              ></textarea>
                 </div>
             </div>
 
