@@ -13,7 +13,7 @@ class AdjustmentRequestController extends Controller
     }
 
     public function create() {
-        return view('module.Administrative.adjustment-request.partial.index');
+        return view('module.Administrative.adjustment-request.create');
     }
 
     public function store() {

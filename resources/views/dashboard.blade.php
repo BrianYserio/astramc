@@ -4,7 +4,7 @@
         
         <div class="flex items-center justify-between mb-4">
             <div>
-              <x-breadcrumb :items="[
+              <x-layout.breadcrumb :items="[
                     ['label' => 'Dashboard', 'active' => true]
                 ]" />
             </div>

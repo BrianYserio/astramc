@@ -10,6 +10,9 @@ use App\Http\Controllers\Web\Administrative\ProductRequestController;
 use App\Http\Controllers\Web\Administrative\CorrectiveRequestController;
 use App\Http\Controllers\Web\Importation\ShipmentOrderController;
 use App\Http\Controllers\Web\Importation\ShipmentRegistryController;
+use App\Http\Controllers\Web\administrator\UserAccountController;
+use App\Http\Controllers\Web\administrator\UserLogController;
+use App\Http\Controllers\Web\HumanResource\EmployeeController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -95,6 +98,43 @@ Route::prefix('Importation')
 
 
     });
+
+    Route::prefix('Human-resource')
+    ->middleware(['auth', 'verified'])
+    ->group(function() {
+
+        // employees.
+        Route::controller(EmployeeController::class)
+            ->name('employees.')
+            ->group(function() {
+                Route::get('human-resource/employees', 'index')->name('index');
+                Route::get('human-resource/employees/create', 'create')->name('create');
+                Route::post('human-resource/employees/', 'store')->name('store');
+            });
+
+    });
+
+    Route::prefix('administrator')
+    ->middleware(['auth', 'verified'])
+    ->group(function() {
+
+        // user-accounts.
+        Route::controller(UserAccountController::class)
+            ->name('user-accounts.')
+            ->group(function() {
+                Route::get('/user-accounts', 'index')->name('index');
+                Route::get('/user-accounts/create', 'create')->name('create');
+            });
+
+            // Importation
+            Route::controller(UserLogController::class)
+                ->name('user-logs.')
+                ->group(function() {
+                    Route::get('/user-logs', 'index')->name('index');
+                });
+
+    });
+
 
 
 

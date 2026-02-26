@@ -26,7 +26,7 @@ class TransmittalController extends Controller
      */
     public function create()
     {
-        return view('module.administrative.transmittal.partial.index');
+        return view('module.administrative.transmittal.create');
     }
 
     /**

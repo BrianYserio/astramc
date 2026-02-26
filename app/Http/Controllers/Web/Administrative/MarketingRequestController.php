@@ -12,6 +12,6 @@ class MarketingRequestController extends Controller
     }
 
     public function create() {
-        return view('module.Administrative.marketing-service-request.partial.index');
+        return view('module.Administrative.marketing-service-request.create');
     }
 }

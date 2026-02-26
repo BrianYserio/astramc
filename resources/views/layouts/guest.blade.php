@@ -20,7 +20,7 @@
                 <div class="max-w-[400px] w-full">
                     <div class="p-6 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm">
 
-                        <x-application-logo/>
+                        <x-branding.application-logo/>
 
                         {{ $slot }}
                     </div>

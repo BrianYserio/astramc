@@ -2,7 +2,7 @@
 
     {{-- Breadcrumb + Add Button --}}
     <div class="flex items-center justify-between mb-4">
-        <x-breadcrumb :items="[
+        <x-layout.breadcrumb :items="[
             ['label' => 'Dashboard', 'active' => false],
             ['label' => 'Importation', 'active' => false],
             ['label' => 'Shipment Registry',    'active' => true]

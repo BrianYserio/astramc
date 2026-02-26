@@ -12,7 +12,7 @@ class CorrectiveRequestController extends Controller
     }
 
     public function create() {
-        return view('module.Administrative.corrective-action-request.partial.index');
+        return view('module.Administrative.corrective-action-request.create');
     }
 
 }

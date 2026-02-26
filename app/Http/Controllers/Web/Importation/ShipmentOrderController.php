@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 class ShipmentOrderController extends Controller
 {
     public function index() {
-        return view('module.Importation.shipment-order.index');
+        return view('module.importation.shipment-order.index');
     }
 
     public function create() {
-        return view('module.Importation.shipment-order.partial.index');
+        return view('module.importation.shipment-order.create');
     }
 }
