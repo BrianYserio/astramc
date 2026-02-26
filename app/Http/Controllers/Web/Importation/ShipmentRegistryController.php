@@ -12,6 +12,6 @@ class ShipmentRegistryController extends Controller
     }
 
     public function create() {
-        return view('module.importation.shipment-registry.partial.index');
+        return view('module.importation.shipment-registry.create');
     }
 }

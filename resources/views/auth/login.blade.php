@@ -1,27 +1,27 @@
 <x-guest-layout>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-auth.auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}" class="mt-12 space-y-6">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
+            <x-forms.input-label for="email" :value="__('Email')" />
             <div class="relative flex items-center">
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Enter email" required autofocus autocomplete="username" />
+                <x-forms.text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Enter email" required autofocus autocomplete="username" />
                     <x-auth.email-icon/>
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
         </div>
         
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" />
+            <x-forms.input-label for="password" :value="__('Password')" />
             <div class="relative flex items-center">
-                <x-text-input id="password" type="password" name="password" placeholder="Enter password" required autocomplete="current-password" />
+                <x-forms.text-input id="password" type="password" name="password" placeholder="Enter password" required autocomplete="current-password" />
                     <x-auth.pass-icon />
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-forms.input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
         </div>
 
@@ -43,9 +43,9 @@
                 </div>
             </div>
             <div class="!mt-12">
-                <x-primary-button>
+                <x-buttons.primary-button>
                     {{ __('Log in') }}
-                </x-primary-button>
+                </x-buttons.primary-button>
             </div>
         </div>
             

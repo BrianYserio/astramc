@@ -12,7 +12,7 @@ class ItRequestController extends Controller
     }
 
     public function create() {
-        return view('module.Administrative.it-service-request.partial.index');
+        return view('module.Administrative.it-service-request.create');
     }
 
     public function store() {

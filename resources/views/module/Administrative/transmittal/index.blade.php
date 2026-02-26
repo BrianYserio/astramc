@@ -3,7 +3,7 @@
     {{-- Page Header --}}
     <section>
         <div class="flex items-center justify-between mb-4">
-            <x-breadcrumb :items="[
+            <x-layout.breadcrumb :items="[
                 ['label' => 'Administrative', 'active' => false],
                 ['label' => 'Transmittal',    'active' => true],
             ]" />

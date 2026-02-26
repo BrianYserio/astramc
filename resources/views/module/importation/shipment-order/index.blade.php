@@ -2,23 +2,17 @@
 
     {{-- Breadcrumb + Add Button --}}
     <div class="flex items-center justify-between mb-4">
-        <x-breadcrumb :items="[
+        <x-layout.breadcrumb :items="[
             ['label' => 'Dashboard', 'active' => false],
             ['label' => 'Importation', 'active' => false],
-            ['label' => 'Shipment Order',    'active' => true]
+            ['label' => 'Shipment Order', 'active' => true]
         ]" />
 
-        <a href="{{ route('shipment-order.create') }}"
-           class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700
-                  text-white text-sm font-semibold
-                  px-4 py-2 rounded-lg
-                  shadow-sm shadow-blue-200 hover:shadow-blue-300
-                  transition duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-            </svg>
+        <x-buttons.add-link href="{{ route('shipment-order.create') }}">
+            <x-icons.addIcon />
             Shipment Order
-        </a>
+        </x-buttons.add-link>
+        
     </div>
 
     {{-- Card wrapper --}}
@@ -42,11 +36,8 @@
 
             {{-- Search --}}
             <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
-                </svg>
-                <input type="text" id="search-input" oninput="searchTable()" placeholder="Search…"
-                       class="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition w-48"/>
+                <x-icons.searchIcon />
+                <x-forms.input-search type="text" id="search-input" oninput="searchTable()" placeholder="Search…"/>
             </div>
         </div>
 
@@ -61,11 +52,7 @@
                             onclick="sortTable(this)">
                             <span class="inline-flex items-center gap-1.5">
                                 {{ $col }}
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     class="w-2.5 h-2.5 fill-gray-300 group-hover:fill-gray-500 transition sort-icon"
-                                     viewBox="0 0 401.998 401.998">
-                                    <path d="M73.092 164.452h255.813c4.949 0 9.233-1.807 12.848-5.424 3.613-3.616 5.427-7.898 5.427-12.847s-1.813-9.229-5.427-12.85L213.846 5.424C210.232 1.812 205.951 0 200.999 0s-9.233 1.812-12.85 5.424L60.242 133.331c-3.617 3.617-5.424 7.901-5.424 12.85 0 4.948 1.807 9.231 5.424 12.847 3.621 3.617 7.902 5.424 12.85 5.424zm255.813 73.097H73.092c-4.952 0-9.233 1.808-12.85 5.421-3.617 3.617-5.424 7.898-5.424 12.847s1.807 9.233 5.424 12.848L188.149 396.57c3.621 3.617 7.902 5.428 12.85 5.428s9.233-1.811 12.847-5.428l127.907-127.906c3.613-3.614 5.427-7.898 5.427-12.848 0-4.948-1.813-9.229-5.427-12.847-3.614-3.616-7.899-5.42-12.848-5.42z"/>
-                                </svg>
+                                <x-icons.sortIcon />
                             </span>
                         </th>
                         @endforeach
@@ -134,9 +121,7 @@
 
             {{-- Empty state --}}
             <div id="empty-state" class="hidden w-full flex flex-col items-center justify-center py-14 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-200 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/>
-                </svg>
+                <x-icons.fileIcon />
                 <p class="text-xs text-gray-300 font-medium">No records found</p>
             </div>
         </div>
