@@ -23,8 +23,8 @@
 
         // ── Leave credit types ────────────────────────────────────────────────
         $leaveTypes = [
-            'vl' => ['label' => 'VL', 'note' => '5 converted to cash'],
-            'sl' => ['label' => 'SL', 'highlight' => true],
+            'vl' => ['label' => 'VL'],
+            'sl' => ['label' => 'SL'],
             'bl' => ['label' => 'BL'],
             'el' => ['label' => 'EL'],
             'ml' => ['label' => 'ML'],
@@ -35,7 +35,7 @@
         $workDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     @endphp
 
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="space-y-4">
@@ -87,26 +87,29 @@
 
                                 {{-- Auto-generated; not user-editable --}}
                                 <div>
-                                    <label class="{{ $styles['label'] }}">Employee ID</label>
+                                    <label class="{{ $styles['label'] }}">
+                                        Employee ID
+                                        <span class="ml-1 text-[0.6rem] font-normal normal-case tracking-normal text-blue-400 bg-blue-50 px-1.5 py-0.5 rounded">Auto-generated</span>
+                                    </label>
                                     <input type="text" name="employee_id" readonly
                                            class="{{ $styles['readonly'] }} {{ $styles['compact'] }}" />
                                 </div>
 
                                 <div>
                                     <label for="first_name" class="{{ $styles['label'] }}">First Name</label>
-                                    <input id="first_name" type="text" name="first_name"
+                                    <input id="first_name" type="text" name="firstName"
                                            class="{{ $styles['input'] }} {{ $styles['compact'] }}" />
                                 </div>
 
                                 <div>
                                     <label for="middle_name" class="{{ $styles['label'] }}">Middle Name</label>
-                                    <input id="middle_name" type="text" name="middle_name"
+                                    <input id="middle_name" type="text" name="middleName"
                                            class="{{ $styles['input'] }} {{ $styles['compact'] }}" />
                                 </div>
 
                                 <div>
                                     <label for="last_name" class="{{ $styles['label'] }}">Last Name</label>
-                                    <input id="last_name" type="text" name="last_name"
+                                    <input id="last_name" type="text" name="lastName"
                                            class="{{ $styles['input'] }} {{ $styles['compact'] }}" />
                                 </div>
 
@@ -119,30 +122,36 @@
                                 <div>
                                     <label class="{{ $styles['label'] }}">Gender</label>
                                     <x-forms.select-field name="gender" class="{{ $styles['compact'] }}">
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Others</option>
+                                        <option value="">Select Gender</option>
+                                        @foreach($genders as $gender)
+                                            <option value="{{ $gender }}">{{ $gender }}</option>
+                                        @endforeach
                                     </x-forms.select-field>
                                 </div>
 
                                 <div>
                                     <label class="{{ $styles['label'] }}">Civil Status</label>
                                     <x-forms.select-field name="civil_status" class="{{ $styles['compact'] }}">
-                                        <option>Single</option>
-                                        <option>Married</option>
+                                        <option value="">Select Status</option>
+                                        @foreach($status as $s)
+                                            <option value="{{ $s }}">{{ $s }}</option>
+                                        @endforeach
                                     </x-forms.select-field>
                                 </div>
 
                                 <div>
                                     <label class="{{ $styles['label'] }}">Citizenship</label>
                                     <x-forms.select-field name="citizenship" class="{{ $styles['compact'] }}">
-                                        <option>Filipino</option>
+                                        <option value="">Select Status</option>
+                                        @foreach($citizenship as $citizenships)
+                                            <option value="{{ $citizenships }}">{{ $citizenships }}</option>
+                                        @endforeach
                                     </x-forms.select-field>
                                 </div>
 
                                 <div>
                                     <label for="contact_number" class="{{ $styles['label'] }}">Contact No.</label>
-                                    <input id="contact_number" type="tel" name="contact_number"
+                                    <input id="contact_number" type="string" name="contactNumber"
                                            class="{{ $styles['input'] }} {{ $styles['compact'] }}" />
                                 </div>
 
@@ -154,7 +163,7 @@
 
                                 <div class="sm:col-span-2">
                                     <label for="address" class="{{ $styles['label'] }}">Complete Address</label>
-                                    <input id="address" type="text" name="address"
+                                    <input id="address" type="text" name="caddress"
                                            class="{{ $styles['input'] }} {{ $styles['compact'] }}" />
                                 </div>
 
@@ -169,6 +178,7 @@
                                          class="opacity-80"
                                          alt="Default profile avatar" />
                                 </div>
+                                <input type="file" name="profile_image" id="profile_image" class="hidden" onchange="previewImage(event)">
                                 <button type="button"
                                         class="w-full bg-orange-500 text-white py-2 rounded text-sm font-medium">
                                     Upload Image
@@ -200,12 +210,22 @@
 
                         <div>
                             <label class="{{ $styles['label'] }}">Company</label>
-                            <x-forms.select-field name="company" placeholder="Select Company" />
+                            <x-forms.select-field name="company" class="{{ $styles['compact'] }}">
+                                <option value="">Select Status</option>
+                                @foreach($companies as $company)
+                                    <option value="{{ $company }}">{{ $company }}</option>
+                                @endforeach
+                            </x-forms.select-field>
                         </div>
 
                         <div>
-                            <label class="{{ $styles['label'] }}">Designation</label>
-                            <x-forms.select-field name="designation" placeholder="Select Designation" />
+                            <label class="{{ $styles['label'] }}">Destination</label>
+                            <x-forms.select-field name="destination" class="{{ $styles['compact'] }}">
+                                <option value="">Select Destination</option>
+                                @foreach($destinations as $destination)
+                                    <option value="{{ $destination }}">{{ $destination }}</option>
+                                @endforeach
+                            </x-forms.select-field>
                         </div>
 
                         <div>
@@ -215,7 +235,12 @@
 
                         <div>
                             <label class="{{ $styles['label'] }}">Position</label>
-                            <x-forms.select-field name="position" placeholder="Select Position" />
+                            <x-forms.select-field name="position" class="{{ $styles['compact'] }}">
+                                <option value="">Select Status</option>
+                                @foreach($positions as $position)
+                                    <option value="{{ $position }}">{{ $position }}</option>
+                                @endforeach
+                            </x-forms.select-field>
                         </div>
 
                         <div>
@@ -241,39 +266,47 @@
 
                         <div>
                             <label class="{{ $styles['label'] }}">Assigned Location</label>
-                            <x-forms.select-field name="assigned_location" placeholder="Select Location">
-                                <option>N/A</option>
+                            <x-forms.select-field name="assigned_location" class="{{ $styles['compact'] }}">
+                                <option value="">Select Location</option>
+                                @foreach ($locations as $location)
+                                    <option value="{{ $location }}">{{$location}}</option>
+                                @endforeach
                             </x-forms.select-field>
                         </div>
 
-                        {{-- Leave credit inputs ──────────────────────────────── --}}
-                        <div class="xl:col-span-3">
-                            <div class="grid grid-cols-6 gap-1">
-                                @foreach ($leaveTypes as $key => $leave)
-                                    <div>
-                                        <label for="leave_{{ $key }}"
-                                               class="text-[10px] font-semibold text-gray-600 uppercase mb-1 block">
-                                            {{ $leave['label'] }}
-                                            @isset($leave['note'])
-                                                <span class="lowercase font-normal text-[9px] text-gray-400 block leading-none">
-                                                    ({{ $leave['note'] }})
-                                                </span>
-                                            @endisset
-                                        </label>
-                                        <input
-                                            id="leave_{{ $key }}"
-                                            type="number"
-                                            name="{{ $key }}"
-                                            value="0"
-                                            class="w-full px-2 py-1 text-xs border rounded
-                                                   {{ ($leave['highlight'] ?? false)
-                                                       ? 'border-blue-400 shadow-sm'
-                                                       : 'bg-gray-50 border-gray-200' }}"
-                                        />
-                                    </div>
-                                @endforeach
-                            </div>
+                    {{-- Leave credit inputs ──────────────────────────────── --}}
+                    <div class="xl:col-span-3">
+                        <div class="grid grid-cols-6 gap-1">
+                            @foreach ($leaveTypes as $key => $leave)
+                                <div>
+                                    <label for="leave_{{ $key }}"
+                                        class="text-[10px] font-semibold text-gray-600 uppercase mb-1 block">
+                                        {{ $leave['label'] }}
+                                        @isset($leave['note'])
+                                            <span class="lowercase font-normal text-[9px] text-gray-400 block leading-none">
+                                                ({{ $leave['note'] }})
+                                            </span>
+                                        @endisset
+                                    </label>
+                                    <input readonly
+                                        id="leave_{{ $key }}"
+                                        type="number"
+                                        name="{{ $key }}"
+                                        value="0"
+                                        class="w-full px-2 py-1 text-xs border rounded
+                                            {{ ($leave['highlight'] ?? false)
+                                                ? 'border-blue-400 shadow-sm'
+                                                : 'bg-gray-50 border-gray-200' }}"
+                                    />
+                                    @if ($key === 'vl')
+                                        <span class="block mt-0.5 text-[0.6rem] font-normal normal-case tracking-normal text-blue-400 bg-blue-50 px-1.5 py-0.5 rounded leading-tight">
+                                            5 converted to cash
+                                        </span>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
+                    </div>
 
                     </div>
                 </div>

@@ -109,6 +109,7 @@ Route::prefix('Importation')
             ->group(function() {
                 Route::get('human-resource/employees', 'index')->name('index');
                 Route::get('human-resource/employees/create', 'create')->name('create');
+                Route::post('human-resource/employees/', 'store')->name('store');
             });
 
     });

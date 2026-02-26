@@ -14,7 +14,7 @@
                 <x-forms.input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
         </div>
-        
+
         <!-- Password -->
         <div>
             <x-forms.input-label for="password" :value="__('Password')" />
@@ -26,7 +26,7 @@
         </div>
 
         <div>
-            <div class="flex flex-wrap items-center justify-between gap-4"> 
+            <div class="flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center">
                     <!-- Remember Me -->
                     <input id="remember_me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" name="remember">
@@ -48,7 +48,7 @@
                 </x-buttons.primary-button>
             </div>
         </div>
-            
+
         </div>
     </form>
 </x-guest-layout>
