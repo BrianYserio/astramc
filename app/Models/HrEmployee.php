@@ -114,4 +114,5 @@ class HrEmployee extends Model
     {
         return trim("{$this->firstname} {$this->middlename} {$this->lastname}");
     }
+
 }

@@ -99,6 +99,7 @@ Route::prefix('Importation')
 
     });
 
+    // Human-resource
     Route::prefix('Human-resource')
     ->middleware(['auth', 'verified'])
     ->group(function() {
@@ -107,9 +108,9 @@ Route::prefix('Importation')
         Route::controller(EmployeeController::class)
             ->name('employees.')
             ->group(function() {
-                Route::get('human-resource/employees', 'index')->name('index');
-                Route::get('human-resource/employees/create', 'create')->name('create');
-                Route::post('human-resource/employees/', 'store')->name('store');
+                Route::get('employees', 'index')->name('index');
+                Route::get('employees/create', 'create')->name('create');
+                Route::post('employees/', 'store')->name('store');
             });
 
     });
